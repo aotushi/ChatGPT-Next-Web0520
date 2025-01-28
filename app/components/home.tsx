@@ -30,6 +30,7 @@ import { getClientConfig } from "../config/client";
 import { ClientApi } from "../client/api";
 import { useAccessStore } from "../store";
 import { identifyDefaultClaudeModel } from "../utils/checkers";
+import Modal from "react-modal";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -188,7 +189,55 @@ export function useLoadData() {
   }, []);
 }
 
+function Dialog() {
+  const [isDialogOpen, setIsDialogOpen] = useState(true); // 默认展示 Dialog
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  return (
+    <>
+      <h1></h1>
+
+      {/* Dialog */}
+      <Modal
+        isOpen={isDialogOpen}
+        onRequestClose={closeDialog}
+        contentLabel="Example Dialog"
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            maxWidth: "500px",
+            width: "100%",
+            padding: "20px",
+            borderRadius: "8px",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <h2>
+          目前推荐使用最优解:国产deepseek
+          <a href="https://chat.deepseek.com/sign_in" target="_blank">
+            DeepSeek
+          </a>
+        </h2>
+        <p>流水落花春去也, 似曾相识燕归来</p>
+        <button onClick={closeDialog}>Close</button>
+      </Modal>
+    </>
+  );
+}
+
 export function Home() {
+  Dialog();
   useSwitchTheme();
   useLoadData();
   useHtmlLang();
