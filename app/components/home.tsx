@@ -237,7 +237,6 @@ function Dialog() {
 }
 
 export function Home() {
-  Dialog();
   useSwitchTheme();
   useLoadData();
   useHtmlLang();
@@ -255,6 +254,7 @@ export function Home() {
     <ErrorBoundary>
       <Router>
         <Screen />
+        <Dialog />
       </Router>
     </ErrorBoundary>
   );
