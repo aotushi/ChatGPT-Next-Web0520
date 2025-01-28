@@ -189,6 +189,39 @@ export function useLoadData() {
   }, []);
 }
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    maxWidth: "500px",
+    width: "90%", // 移动端宽度占满屏幕的 90%
+    padding: "20px",
+    borderRadius: "8px",
+    maxHeight: "80vh", // 限制最大高度为视口的 80%
+    overflow: "auto", // 如果内容过长，允许滚动
+    fontSize: "16px",
+  },
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+};
+
+// 针对移动端的样式调整
+if (window.innerWidth <= 768) {
+  // 假设 768px 是移动端的断点
+  customStyles.content = {
+    ...customStyles.content,
+    width: "90%", // 移动端宽度占满屏幕的 90%
+    maxWidth: "none", // 移除最大宽度限制
+    padding: "15px", // 减少内边距
+    fontSize: "14px", // 调整字体大小
+  };
+}
+
 function Dialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(true); // 默认展示 Dialog
 
@@ -198,38 +231,20 @@ function Dialog() {
 
   return (
     <>
-      <h1></h1>
-
       {/* Dialog */}
       <Modal
         isOpen={isDialogOpen}
         onRequestClose={closeDialog}
         contentLabel="Example Dialog"
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            maxWidth: "500px",
-            width: "100%",
-            padding: "20px",
-            borderRadius: "8px",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
+        style={customStyles} // 使用适配移动端的样式
       >
-        <h2>
+        <h4>
           目前推荐使用最优解:国产deepseek
           <a href="https://chat.deepseek.com/sign_in" target="_blank">
             DeepSeek
           </a>
-        </h2>
-        <p>流水落花春去也, 似曾相识燕归来</p>
+        </h4>
+        <h4>流水落花春去也, 似曾相识燕归来</h4>
         <button onClick={closeDialog}>Close</button>
       </Modal>
     </>
